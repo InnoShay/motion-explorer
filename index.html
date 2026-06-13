@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Motion Explorer — An AI-Powered Interactive NCERT Learning Lab for Class 9 Physics. Explore motion, distance, displacement, speed, velocity, acceleration, and graphs through interactive simulations.">
+  <meta name="keywords" content="NCERT, Class 9, Physics, Motion, Interactive Learning, AI Education">
+  <meta name="author" content="Motion Explorer">
+  <title>Motion Explorer — AI-Powered Interactive NCERT Learning Lab</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/loader.css">
+</head>
+<body>
+  <!-- ═══════════════════════════════════════ -->
+  <!-- BOOT LOADER -->
+  <!-- ═══════════════════════════════════════ -->
+  <div id="boot-loader">
+    <div class="loader-bg-grid"></div>
+    
+    <div class="loader-atom">
+      <div class="atom-core"></div>
+      <div class="atom-orbit orbit-1"><div class="atom-electron"></div></div>
+      <div class="atom-orbit orbit-2"><div class="atom-electron"></div></div>
+      <div class="atom-orbit orbit-3"><div class="atom-electron"></div></div>
+    </div>
+    
+    <div class="loader-branding">
+      <div class="loader-title">MOTION EXPLORER</div>
+      <div class="loader-subtitle">An AI-Powered Interactive NCERT Learning Lab</div>
+    </div>
+
+    <div class="loader-progress-container">
+      <div class="loader-status">
+        <span class="loader-message" id="loader-message">Initializing Physics Engine...</span>
+        <span class="loader-percent" id="loader-percent">0%</span>
+      </div>
+      <div class="loader-bar-bg">
+        <div class="loader-bar-fill" id="loader-bar-fill">
+          <div class="loader-bar-glow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app">
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- TOP NAVIGATION -->
+    <!-- ═══════════════════════════════════════ -->
+    <nav class="top-nav hidden-nav" id="top-nav">
+      <div class="nav-brand">
+        <div class="nav-logo">🚀</div>
+        <span class="nav-title">MOTION EXPLORER</span>
+      </div>
+      <div class="nav-progress">
+        <span class="progress-text" id="progress-text">0/5 Missions Complete</span>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-icon" onclick="App.prev()" title="Previous" id="btn-prev">◀</button>
+        <button class="btn-icon" onclick="App.next()" title="Next" id="btn-next">▶</button>
+      </div>
+    </nav>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- KNOWLEDGE TRACKER (sidebar) -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="knowledge-tracker" id="knowledge-tracker" style="display: none;">
+      <div class="tracker-item" data-concept="motion">
+        <span class="tracker-icon"></span> Motion
+      </div>
+      <div class="tracker-item" data-concept="distance">
+        <span class="tracker-icon"></span> Distance
+      </div>
+      <div class="tracker-item" data-concept="displacement">
+        <span class="tracker-icon"></span> Displacement
+      </div>
+      <div class="tracker-item" data-concept="speed">
+        <span class="tracker-icon"></span> Speed
+      </div>
+      <div class="tracker-item" data-concept="velocity">
+        <span class="tracker-icon"></span> Velocity
+      </div>
+      <div class="tracker-item" data-concept="acceleration">
+        <span class="tracker-icon"></span> Acceleration
+      </div>
+      <div class="tracker-item" data-concept="graphs">
+        <span class="tracker-icon"></span> Graphs
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- NOVA AI GUIDE -->
+    <!-- ═══════════════════════════════════════ -->
+    <div class="nova-container" style="display: none;">
+      <div class="nova-bubble" id="nova-bubble">
+        <div class="nova-name">✦ NOVA — AI Guide</div>
+        <div class="nova-text" id="nova-text"></div>
+      </div>
+      <div class="nova-avatar" id="nova-avatar" title="Click to hear from NOVA">
+        <div class="orb-core"></div>
+        <div class="orb-ring orb-ring1"></div>
+        <div class="orb-ring orb-ring2"></div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCREEN: WELCOME                                                -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="screen welcome-screen" id="screen-welcome">
+      <!-- Animated Background -->
+      <div class="welcome-bg">
+        <div class="bg-stars"></div>
+        <div class="parallax-layer">
+          <div class="bg-object bg-planet">🪐</div>
+          <div class="bg-object bg-bird">🦅</div>
+          <div class="bg-object bg-bird-2">🕊️</div>
+          <div class="bg-object bg-car">🚗</div>
+          <div class="bg-object bg-cyclist">🚴</div>
+          <div class="bg-object bg-runner">🏃</div>
+          <div class="bg-object bg-train">🚂</div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="welcome-content">
+        <div class="welcome-pretitle">An AI-Powered Interactive NCERT Learning Experience</div>
+        <h1 class="welcome-title">MOTION EXPLORER</h1>
+        <p class="welcome-subtitle">NCERT Class 9 — Chapter 4: Describing Motion Around Us</p>
+        <p class="welcome-tagline">"Today <em>you</em> become a Motion Scientist."</p>
+
+        <div class="mission-objectives">
+          <h4>🎯 Mission Objectives</h4>
+          <div class="mission-item"><span class="check">✓</span> Understand Motion</div>
+          <div class="mission-item"><span class="check">✓</span> Measure Distance & Displacement</div>
+          <div class="mission-item"><span class="check">✓</span> Compare Speed & Velocity</div>
+          <div class="mission-item"><span class="check">✓</span> Explore Acceleration</div>
+          <div class="mission-item"><span class="check">✓</span> Decode Motion Graphs</div>
+        </div>
+
+        <!-- Story intro -->
+        <div class="story-box" style="text-align: left; max-width: 420px; margin: 0 auto var(--space-6);">
+          <div class="story-avatar">🧑</div>
+          <div class="story-content">
+            <h5>Meet Aryan</h5>
+            <p>Follow Aryan's journey from home to school — and discover the science of Motion along the way!</p>
+          </div>
+        </div>
+
+        <div class="welcome-cta">
+          <button class="btn btn-glow" onclick="App.navigateTo('screen1')" id="btn-start">
+            🚀 START EXPLORATION
+          </button>
+        </div>
+        <p class="welcome-note">"Learn through interaction, visualization and experimentation."</p>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCREEN 1: UNDERSTANDING MOTION                                  -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="screen concept-screen" id="screen-screen1">
+      <div class="split-panel">
+        <!-- LEFT: NCERT Content -->
+        <div class="panel-left">
+          <div class="panel-left-header">
+            <span class="icon">📖</span>
+            <h4>NCERT Textbook</h4>
+          </div>
+          <div class="pdf-viewer">
+            <img src="assets/pdf-pages/page_1.png" alt="NCERT Page - Introduction to Motion" loading="lazy">
+            <img src="assets/pdf-pages/page_2.png" alt="NCERT Page - Describing Position" loading="lazy">
+            <img src="assets/pdf-pages/page_3.png" alt="NCERT Page - Position and Reference Point" loading="lazy">
+          </div>
+        </div>
+
+        <!-- RIGHT: Interactive Lab -->
+        <div class="panel-right">
+          <div class="panel-right-header">
+            <span class="screen-badge">🔬 Mission 1</span>
+            <h2>Understanding Motion</h2>
+            <p>Explore what motion really means through interaction</p>
+          </div>
+
+          <!-- Voice -->
+          <button class="voice-btn" data-screen="motion" onclick="Voice.speak('motion')">🔊 Listen to Explanation</button>
+
+          <!-- Story -->
+          <div class="story-box">
+            <div class="story-avatar">🧑</div>
+            <div class="story-content">
+              <h5>Aryan's Story</h5>
+              <p>Aryan steps out of his house. As he starts walking, his position changes — motion begins!</p>
+            </div>
+          </div>
+
+          <!-- Simulation -->
+          <div class="sim-container">
+            <div class="sim-header">
+              <h5>🧪 Interactive Motion Lab</h5>
+              <span class="ai-corner">Visualized by AI</span>
+            </div>
+            <div class="sim-canvas-wrap">
+              <canvas id="canvas-motion"></canvas>
+              <div class="sim-overlay" id="motion-detected">🟢 MOTION DETECTED!</div>
+            </div>
+          </div>
+
+          <!-- Key Concept -->
+          <div class="concept-box">
+            <div class="concept-label">💡 Key Concept</div>
+            <div class="concept-text">Motion = Change in Position with Time</div>
+          </div>
+
+          <!-- Real-Life Examples -->
+          <h5 style="margin-bottom: var(--space-3); color: var(--color-text-muted);">Real-Life Examples</h5>
+          <div class="examples-grid">
+            <div class="example-item"><div class="emoji">🚶</div><span>Walking</span></div>
+            <div class="example-item"><div class="emoji">🚗</div><span>Driving</span></div>
+            <div class="example-item"><div class="emoji">✈️</div><span>Flying</span></div>
+            <div class="example-item"><div class="emoji">🌍</div><span>Orbiting</span></div>
+          </div>
+
+          <!-- Mini Challenge -->
+          <div class="quiz-card">
+            <span class="quiz-label">🏆 Mini Challenge</span>
+            <div class="quiz-question">Which of the following can be in motion?</div>
+            <div class="quiz-options">
+              <button class="btn-option" data-correct="false" onclick="Screen1Motion.handleQuiz(this, false)">A. Only the car</button>
+              <button class="btn-option" data-correct="false" onclick="Screen1Motion.handleQuiz(this, false)">B. Only living things</button>
+              <button class="btn-option" data-correct="true" onclick="Screen1Motion.handleQuiz(this, true)">C. All objects — cars, people, birds, and planets</button>
+              <button class="btn-option" data-correct="false" onclick="Screen1Motion.handleQuiz(this, false)">D. Only objects on wheels</button>
+            </div>
+            <div class="quiz-feedback" id="quiz1-feedback"></div>
+          </div>
+
+          <!-- Misconception -->
+          <div class="misconception-box">
+            <div class="misconception-label">⚠️ Common Misconception</div>
+            <p>Objects can appear stationary from one frame of reference and moving from another. A passenger in a train is at rest relative to the train but in motion relative to someone on the ground!</p>
+          </div>
+
+          <!-- Navigation -->
+          <div class="screen-nav">
+            <button class="btn btn-secondary" onclick="App.navigateTo('welcome')">← Welcome</button>
+            <button class="btn btn-primary" onclick="App.navigateTo('screen2')">Next: Distance & Displacement →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCREEN 2: DISTANCE VS DISPLACEMENT                              -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="screen concept-screen" id="screen-screen2">
+      <div class="split-panel">
+        <!-- LEFT -->
+        <div class="panel-left">
+          <div class="panel-left-header">
+            <span class="icon">📖</span>
+            <h4>NCERT Textbook</h4>
+          </div>
+          <div class="pdf-viewer">
+            <img src="assets/pdf-pages/page_3.png" alt="NCERT Page - Distance and Displacement" loading="lazy">
+            <img src="assets/pdf-pages/page_4.png" alt="NCERT Page - Distance vs Displacement Examples" loading="lazy">
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="panel-right">
+          <div class="panel-right-header">
+            <span class="screen-badge">📏 Mission 2</span>
+            <h2>Distance vs Displacement Lab</h2>
+            <p>Discover the difference between distance and displacement</p>
+          </div>
+
+          <button class="voice-btn" data-screen="distance" onclick="Voice.speak('distance')">🔊 Listen to Explanation</button>
+
+          <div class="story-box">
+            <div class="story-avatar">🧑</div>
+            <div class="story-content">
+              <h5>Aryan's Story</h5>
+              <p>Aryan can take 3 different routes to school. Which path should he choose? Let's compare the distance and displacement for each!</p>
+            </div>
+          </div>
+
+          <!-- Simulation -->
+          <div class="sim-container">
+            <div class="sim-header">
+              <h5>🗺️ Route Explorer</h5>
+              <span class="ai-corner">Visualized by AI</span>
+            </div>
+            <div class="sim-canvas-wrap">
+              <canvas id="canvas-distance"></canvas>
+            </div>
+            <div class="sim-controls">
+              <button class="btn btn-secondary btn-sm route-btn" data-route="curved" onclick="Screen2Distance.selectRoute('curved')">🔵 Curved Route</button>
+              <button class="btn btn-secondary btn-sm route-btn" data-route="zigzag" onclick="Screen2Distance.selectRoute('zigzag')">🟡 Zigzag Route</button>
+              <button class="btn btn-secondary btn-sm route-btn" data-route="straight" onclick="Screen2Distance.selectRoute('straight')">🟢 Straight Route</button>
+            </div>
+          </div>
+
+          <!-- Values -->
+          <div class="value-display">
+            <div class="value-card">
+              <div class="value-label">Distance Travelled</div>
+              <div class="value-number" id="dist-value">— m</div>
+              <div class="value-unit">Total path length</div>
+            </div>
+            <div class="value-card highlight">
+              <div class="value-label">Displacement</div>
+              <div class="value-number" id="disp-value">— m</div>
+              <div class="value-unit">Shortest path (start → end)</div>
+            </div>
+          </div>
+
+          <!-- Important Terms -->
+          <h5 style="margin-bottom: var(--space-3); color: var(--color-text-muted);">Important Terms</h5>
+          <div class="terms-grid">
+            <div class="term-item"><span class="term-word">Distance</span></div>
+            <div class="term-item"><span class="term-word">Displacement</span></div>
+            <div class="term-item"><span class="term-word">Path Length</span></div>
+            <div class="term-item"><span class="term-word">Shortest Path</span></div>
+          </div>
+
+          <!-- Key Concept -->
+          <div class="concept-box">
+            <div class="concept-label">💡 Key Concept</div>
+            <div class="concept-text">Distance is the total path length. Displacement is the shortest straight-line distance from start to end, with direction.</div>
+          </div>
+
+          <!-- Quiz -->
+          <div class="quiz-card">
+            <span class="quiz-label">🏆 Mini Challenge</span>
+            <div class="quiz-question">Which value always represents the shortest route between start and end?</div>
+            <div class="quiz-options">
+              <button class="btn-option" data-correct="false" onclick="Screen2Distance.handleQuiz(this, false)">A. Distance</button>
+              <button class="btn-option" data-correct="true" onclick="Screen2Distance.handleQuiz(this, true)">B. Displacement</button>
+              <button class="btn-option" data-correct="false" onclick="Screen2Distance.handleQuiz(this, false)">C. Both are equal</button>
+              <button class="btn-option" data-correct="false" onclick="Screen2Distance.handleQuiz(this, false)">D. Neither</button>
+            </div>
+            <div class="quiz-feedback" id="quiz2-feedback"></div>
+          </div>
+
+          <!-- Misconception -->
+          <div class="misconception-box">
+            <div class="misconception-label">⚠️ Common Confusion</div>
+            <p>Distance ≠ Displacement! Distance is always positive and depends on the path taken. Displacement can be zero (if you return to the start) and depends only on the starting and ending positions.</p>
+          </div>
+
+          <div class="screen-nav">
+            <button class="btn btn-secondary" onclick="App.navigateTo('screen1')">← Motion</button>
+            <button class="btn btn-primary" onclick="App.navigateTo('screen3')">Next: Speed & Velocity →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCREEN 3: SPEED AND VELOCITY                                    -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="screen concept-screen" id="screen-screen3">
+      <div class="split-panel">
+        <!-- LEFT -->
+        <div class="panel-left">
+          <div class="panel-left-header">
+            <span class="icon">📖</span>
+            <h4>NCERT Textbook</h4>
+          </div>
+          <div class="pdf-viewer">
+            <img src="assets/pdf-pages/page_5.png" alt="NCERT Page - Average Speed and Velocity" loading="lazy">
+            <img src="assets/pdf-pages/page_6.png" alt="NCERT Page - Velocity and Direction" loading="lazy">
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="panel-right">
+          <div class="panel-right-header">
+            <span class="screen-badge">⚡ Mission 3</span>
+            <h2>Speed & Velocity Studio</h2>
+            <p>Understand the crucial difference between speed and velocity</p>
+          </div>
+
+          <button class="voice-btn" data-screen="speed" onclick="Voice.speak('speed')">🔊 Listen to Explanation</button>
+
+          <div class="story-box">
+            <div class="story-avatar">🧑</div>
+            <div class="story-content">
+              <h5>Aryan's Story</h5>
+              <p>Aryan walks at first, but then realizes he's late! He picks up speed. But is he just faster, or is his velocity changing too?</p>
+            </div>
+          </div>
+
+          <!-- Vehicle Selector -->
+          <div style="display: flex; gap: var(--space-3); margin-bottom: var(--space-4);">
+            <button class="btn btn-secondary btn-sm vehicle-btn active" data-vehicle="car">🚗 Car</button>
+            <button class="btn btn-secondary btn-sm vehicle-btn" data-vehicle="bicycle">🚲 Bicycle</button>
+            <button class="btn btn-secondary btn-sm vehicle-btn" data-vehicle="train">🚂 Train</button>
+          </div>
+
+          <!-- Simulation -->
+          <div class="sim-container">
+            <div class="sim-header">
+              <h5>🏎️ Speed Simulator</h5>
+              <span class="ai-corner">Visualized by AI</span>
+            </div>
+            <div class="sim-canvas-wrap">
+              <canvas id="canvas-speed"></canvas>
+            </div>
+            <div class="sim-controls">
+              <div class="slider-container" style="flex: 1;">
+                <label>Speed</label>
+                <input type="range" id="speed-slider" min="0" max="100" value="30">
+                <span class="slider-value" id="speed-val">30 km/h</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direction Toggle -->
+          <div style="text-align: center; margin-bottom: var(--space-5);">
+            <button class="btn btn-secondary" id="dir-toggle" onclick="">→ Moving Right</button>
+            <p style="font-size: var(--text-xs); color: var(--color-text-dim); margin-top: var(--space-2);">Click to change direction and see how velocity changes</p>
+          </div>
+
+          <!-- Comparison -->
+          <div class="comparison-panel">
+            <div class="comparison-item">
+              <h5>📊 Speed</h5>
+              <p>How fast?</p>
+              <div style="font-family: var(--font-mono); font-size: var(--text-xl); color: var(--color-cyan); margin-top: var(--space-2);" id="speed-num">30</div>
+              <div style="font-size: var(--text-xs); color: var(--color-text-dim);">km/h (no direction)</div>
+            </div>
+            <div class="comparison-item">
+              <h5>🧭 Velocity</h5>
+              <p>How fast + direction?</p>
+              <div style="font-family: var(--font-mono); font-size: var(--text-xl); color: var(--color-purple-light); margin-top: var(--space-2);" id="vel-num">+30 →</div>
+              <div style="font-size: var(--text-xs); color: var(--color-text-dim);">km/h (with direction)</div>
+            </div>
+          </div>
+
+          <!-- Key Concept -->
+          <div class="concept-box">
+            <div class="concept-label">💡 Key Concept</div>
+            <div class="concept-text">Speed = How fast (magnitude only). Velocity = How fast + in which direction (magnitude + direction).</div>
+          </div>
+
+          <!-- Real-Life Connection -->
+          <div class="examples-grid" style="grid-template-columns: 1fr;">
+            <div class="example-item" style="text-align: left; display: flex; gap: var(--space-3); align-items: center;">
+              <div class="emoji">🗺️</div>
+              <div>
+                <strong style="color: var(--color-text-primary);">Real-Life Connection: Google Maps</strong>
+                <span style="display: block; margin-top: 4px;">Google Maps doesn't just show speed — it shows direction too. That's velocity in action!</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quiz -->
+          <div class="quiz-card">
+            <span class="quiz-label">🏆 Mini Challenge</span>
+            <div class="quiz-question">Can two objects have the same speed but different velocities?</div>
+            <div class="quiz-options">
+              <button class="btn-option" data-correct="true" onclick="Screen3Speed.handleQuiz(this, true)">A. Yes — if they move in different directions</button>
+              <button class="btn-option" data-correct="false" onclick="Screen3Speed.handleQuiz(this, false)">B. No — speed and velocity are the same thing</button>
+              <button class="btn-option" data-correct="false" onclick="Screen3Speed.handleQuiz(this, false)">C. Only if they have different masses</button>
+            </div>
+            <div class="quiz-feedback" id="quiz3-feedback"></div>
+          </div>
+
+          <!-- Misconception -->
+          <div class="misconception-box">
+            <div class="misconception-label">⚠️ Common Confusion</div>
+            <p>Speed ≠ Velocity! Speed has no direction. Two cars moving at 60 km/h — one North, one South — have the same speed but different velocities.</p>
+          </div>
+
+          <div class="screen-nav">
+            <button class="btn btn-secondary" onclick="App.navigateTo('screen2')">← Distance</button>
+            <button class="btn btn-primary" onclick="App.navigateTo('screen4')">Next: Acceleration →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCREEN 4: ACCELERATION LAB                                      -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="screen concept-screen" id="screen-screen4">
+      <div class="split-panel">
+        <!-- LEFT -->
+        <div class="panel-left">
+          <div class="panel-left-header">
+            <span class="icon">📖</span>
+            <h4>NCERT Textbook</h4>
+          </div>
+          <div class="pdf-viewer">
+            <img src="assets/pdf-pages/page_7.png" alt="NCERT Page - Acceleration" loading="lazy">
+            <img src="assets/pdf-pages/page_8.png" alt="NCERT Page - Acceleration Examples" loading="lazy">
+            <img src="assets/pdf-pages/page_9.png" alt="NCERT Page - Acceleration and Graphs" loading="lazy">
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="panel-right">
+          <div class="panel-right-header">
+            <span class="screen-badge">🚀 Mission 4</span>
+            <h2>Acceleration Lab</h2>
+            <p>Control acceleration and see how velocity changes</p>
+          </div>
+
+          <button class="voice-btn" data-screen="acceleration" onclick="Voice.speak('acceleration')">🔊 Listen to Explanation</button>
+
+          <div class="story-box">
+            <div class="story-avatar">🧑</div>
+            <div class="story-content">
+              <h5>Aryan's Story</h5>
+              <p>Aryan realizes he's late for school! He starts running faster and faster — his speed increases every second. That's acceleration!</p>
+            </div>
+          </div>
+
+          <!-- Simulation -->
+          <div class="sim-container">
+            <div class="sim-header">
+              <h5>🏁 Racing Track</h5>
+              <span class="ai-corner">Visualized by AI</span>
+            </div>
+            <div class="sim-canvas-wrap">
+              <canvas id="canvas-accel"></canvas>
+            </div>
+            <div class="sim-controls">
+              <button class="btn btn-secondary btn-sm accel-btn" data-mode="accelerate" onclick="Screen4Accel.setMode('accelerate')" style="border-color: rgba(16,185,129,0.4); color: #10b981;">🚀 Accelerate</button>
+              <button class="btn btn-secondary btn-sm accel-btn" data-mode="brake" onclick="Screen4Accel.setMode('brake')" style="border-color: rgba(239,68,68,0.4); color: #ef4444;">🛑 Brake</button>
+              <button class="btn btn-secondary btn-sm accel-btn" data-mode="constant" onclick="Screen4Accel.setMode('constant')" style="border-color: rgba(148,163,184,0.4);">➡️ Maintain Speed</button>
+            </div>
+          </div>
+
+          <!-- Dashboard -->
+          <div class="dashboard">
+            <div class="dashboard-item">
+              <div class="dash-label">Initial Velocity</div>
+              <div class="dash-value" id="init-vel">0</div>
+              <div class="dash-unit">m/s</div>
+            </div>
+            <div class="dashboard-item">
+              <div class="dash-label">Final Velocity</div>
+              <div class="dash-value" id="final-vel">0</div>
+              <div class="dash-unit">m/s</div>
+            </div>
+            <div class="dashboard-item">
+              <div class="dash-label">Acceleration</div>
+              <div class="dash-value" id="accel-val">0.0</div>
+              <div class="dash-unit">m/s² <span id="accel-type" style="color: var(--color-text-dim);">⚪ Zero</span></div>
+            </div>
+          </div>
+
+          <!-- Key Concept -->
+          <div class="concept-box">
+            <div class="concept-label">💡 Key Concept</div>
+            <div class="concept-text">Acceleration = Change in Velocity ÷ Time Taken. It tells us how quickly the velocity is changing.</div>
+          </div>
+
+          <!-- Comparison -->
+          <div class="comparison-panel">
+            <div class="comparison-item" style="border-color: rgba(16,185,129,0.3);">
+              <h5 style="color: #10b981;">🟢 Positive Acceleration</h5>
+              <p>Speed is <strong>increasing</strong>.<br>Example: Car speeding up</p>
+            </div>
+            <div class="comparison-item" style="border-color: rgba(239,68,68,0.3);">
+              <h5 style="color: #ef4444;">🔴 Negative Acceleration</h5>
+              <p>Speed is <strong>decreasing</strong>.<br>Example: Car braking</p>
+            </div>
+          </div>
+
+          <!-- Quiz -->
+          <div class="quiz-card">
+            <span class="quiz-label">🏆 Mini Challenge</span>
+            <div class="quiz-question">What happens when speed increases by the same amount every second?</div>
+            <div class="quiz-options">
+              <button class="btn-option" data-correct="false" onclick="Screen4Accel.handleQuiz(this, false)">A. The object has zero acceleration</button>
+              <button class="btn-option" data-correct="true" onclick="Screen4Accel.handleQuiz(this, true)">B. The object has constant positive acceleration</button>
+              <button class="btn-option" data-correct="false" onclick="Screen4Accel.handleQuiz(this, false)">C. The object is decelerating</button>
+              <button class="btn-option" data-correct="false" onclick="Screen4Accel.handleQuiz(this, false)">D. This is impossible</button>
+            </div>
+            <div class="quiz-feedback" id="quiz4-feedback"></div>
+          </div>
+
+          <!-- Misconception -->
+          <div class="misconception-box">
+            <div class="misconception-label">⚠️ Common Confusion</div>
+            <p>Acceleration does NOT always mean moving fast! A bus moving at constant high speed has zero acceleration. Acceleration is about the CHANGE in velocity, not the speed itself.</p>
+          </div>
+
+          <div class="screen-nav">
+            <button class="btn btn-secondary" onclick="App.navigateTo('screen3')">← Speed</button>
+            <button class="btn btn-primary" onclick="App.navigateTo('screen5')">Next: Motion Graphs →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCREEN 5: DISTANCE-TIME GRAPHS                                  -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="screen concept-screen" id="screen-screen5">
+      <div class="split-panel">
+        <!-- LEFT -->
+        <div class="panel-left">
+          <div class="panel-left-header">
+            <span class="icon">📖</span>
+            <h4>NCERT Textbook</h4>
+          </div>
+          <div class="pdf-viewer">
+            <img src="assets/pdf-pages/page_10.png" alt="NCERT Page - Graphical Representation" loading="lazy">
+            <img src="assets/pdf-pages/page_11.png" alt="NCERT Page - Plotting Graphs" loading="lazy">
+            <img src="assets/pdf-pages/page_12.png" alt="NCERT Page - Position-Time Graphs" loading="lazy">
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="panel-right">
+          <div class="panel-right-header">
+            <span class="screen-badge">📊 Mission 5</span>
+            <h2>Distance-Time Graph Explorer</h2>
+            <p>Decode motion through graphs — the visual language of physics</p>
+          </div>
+
+          <button class="voice-btn" data-screen="graphs" onclick="Voice.speak('graphs')">🔊 Listen to Explanation</button>
+
+          <div class="story-box">
+            <div class="story-avatar">🧑</div>
+            <div class="story-content">
+              <h5>Aryan's Story</h5>
+              <p>Aryan's entire journey — from standing at the gate, to walking steadily, to running late — can be told through a graph. Let's see how!</p>
+            </div>
+          </div>
+
+          <!-- Simulation -->
+          <div class="sim-container">
+            <div class="sim-header">
+              <h5>📈 Graph Laboratory</h5>
+              <span class="ai-corner">Visualized by AI</span>
+            </div>
+            <div class="sim-canvas-wrap">
+              <canvas id="canvas-graphs"></canvas>
+            </div>
+            <div class="sim-controls">
+              <button class="btn btn-secondary btn-sm scenario-btn" data-scenario="rest" onclick="Screen5Graphs.selectScenario('rest')">🧍 Standing Still</button>
+              <button class="btn btn-secondary btn-sm scenario-btn" data-scenario="uniform" onclick="Screen5Graphs.selectScenario('uniform')">🚶 Walking Steadily</button>
+              <button class="btn btn-secondary btn-sm scenario-btn" data-scenario="accelerating" onclick="Screen5Graphs.selectScenario('accelerating')">🏃 Running Faster</button>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="concept-box">
+            <div class="concept-label" id="graph-description">Select a scenario to see the graph</div>
+            <div class="concept-text" id="graph-linetype">The shape of the line tells us about the type of motion</div>
+          </div>
+
+          <!-- Visual Learning -->
+          <h5 style="margin-bottom: var(--space-3); color: var(--color-text-muted);">Visual Learning Guide</h5>
+          <div class="comparison-panel">
+            <div class="comparison-item">
+              <h5>— Horizontal Line</h5>
+              <p>Object is <strong>at rest</strong>.<br>No change in position.</p>
+            </div>
+            <div class="comparison-item">
+              <h5>↗ Steep Line</h5>
+              <p><strong>Faster motion</strong>.<br>Greater slope = higher speed.</p>
+            </div>
+          </div>
+
+          <!-- Key Concept -->
+          <div class="concept-box">
+            <div class="concept-label">💡 Key Concept</div>
+            <div class="concept-text">In a distance-time graph: Slope = Speed. Straight line = constant speed. Curve = changing speed (acceleration).</div>
+          </div>
+
+          <!-- Quiz -->
+          <div class="quiz-card">
+            <span class="quiz-label">🏆 Mini Challenge</span>
+            <div class="quiz-question">What does a straight line with a positive slope in a distance-time graph indicate?</div>
+            <div class="quiz-options">
+              <button class="btn-option" data-correct="true" onclick="Screen5Graphs.handleQuiz(this, true)">A. Object moving with constant speed</button>
+              <button class="btn-option" data-correct="false" onclick="Screen5Graphs.handleQuiz(this, false)">B. Object at rest</button>
+              <button class="btn-option" data-correct="false" onclick="Screen5Graphs.handleQuiz(this, false)">C. Object accelerating</button>
+              <button class="btn-option" data-correct="false" onclick="Screen5Graphs.handleQuiz(this, false)">D. Object decelerating</button>
+            </div>
+            <div class="quiz-feedback" id="quiz5-feedback"></div>
+          </div>
+
+          <div class="screen-nav">
+            <button class="btn btn-secondary" onclick="App.navigateTo('screen4')">← Acceleration</button>
+            <button class="btn btn-primary" onclick="App.navigateTo('challenge')">🎯 Final Mission Challenge →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCREEN: FINAL CHALLENGE                                         -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="screen challenge-screen" id="screen-challenge">
+      <div class="challenge-container">
+        <div class="challenge-header">
+          <span class="screen-badge">🎯 Final Mission</span>
+          <h2>Knowledge Challenge</h2>
+          <p style="color: var(--color-text-muted);">Test your understanding of Motion concepts</p>
+        </div>
+
+        <div class="challenge-progress">
+          <div class="challenge-dot"></div>
+          <div class="challenge-dot"></div>
+          <div class="challenge-dot"></div>
+          <div class="challenge-dot"></div>
+          <div class="challenge-dot"></div>
+        </div>
+
+        <div id="challenge-content">
+          <!-- Dynamically rendered by ChallengeScreen -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCREEN: CERTIFICATE                                             -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="screen certificate-screen" id="screen-certificate">
+      <div class="certificate-wrapper">
+        <div style="text-align: center; margin-bottom: var(--space-6);">
+          <span class="screen-badge">🎓 Achievement Unlocked</span>
+        </div>
+
+        <div class="certificate">
+          <div class="certificate-content">
+            <div class="cert-badge">🏆</div>
+            <div class="cert-title">MOTION MASTER CERTIFICATE</div>
+            <div class="cert-subtitle">Awarded For Successfully Completing Motion Explorer</div>
+            
+            <div class="section-divider"></div>
+            
+            <div style="font-size: var(--text-sm); color: var(--color-text-dim); margin-bottom: var(--space-2);">This certifies that</div>
+            <div class="cert-name" id="cert-name-display">Your Name Here</div>
+            <div class="cert-achievement">has successfully explored and mastered the concepts of Motion including Distance, Displacement, Speed, Velocity, Acceleration, and Graphical Representation as part of the NCERT Class 9 Physics curriculum.</div>
+            
+            <div class="section-divider"></div>
+
+            <div style="display: flex; justify-content: center; gap: var(--space-8); margin-bottom: var(--space-4);">
+              <div>
+                <div style="font-size: var(--text-xs); color: var(--color-text-dim);">Date</div>
+                <div style="font-weight: 600; color: var(--color-text-secondary);" id="cert-date"></div>
+              </div>
+              <div>
+                <div style="font-size: var(--text-xs); color: var(--color-text-dim);">Badge</div>
+                <div style="font-size: 32px;">🌟</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Name Input -->
+        <div class="cert-name-input">
+          <input type="text" class="input-field" id="cert-name-input" placeholder="Enter your name for the certificate..." maxlength="50">
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-6);">
+          <button class="btn btn-primary" onclick="App.navigateTo('finale')">
+            🚀 Grand Finale →
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- SCREEN: GRAND FINALE                                            -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="screen finale-screen" id="screen-finale">
+      <div class="finale-content">
+        <!-- Concept Chain -->
+        <div style="margin-bottom: var(--space-4);">
+          <h3 style="text-align: center; margin-bottom: var(--space-6); color: var(--color-text-muted);">Your Learning Journey</h3>
+          <div class="finale-chain">
+            <span class="chain-node">Motion</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Distance</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Speed</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Velocity</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Acceleration</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Graphs</span>
+          </div>
+        </div>
+
+        <!-- Rocket -->
+        <div class="rocket-container">
+          <div class="rocket-emoji" id="finale-rocket">🚀</div>
+        </div>
+
+        <!-- Quote -->
+        <div class="finale-quote" id="finale-quote" style="opacity: 0;">
+          "Understanding <em>Motion</em> Powers Everything — From <em>Bicycles</em> To <em>Rockets</em>."
+        </div>
+
+        <div class="section-divider" style="max-width: 400px; margin: var(--space-8) auto;"></div>
+
+        <!-- Reflection -->
+        <div class="reflection-section">
+          <h3>💭 Why This Experience Was Built</h3>
+          <div class="reflection-text">
+            "Instead of creating static slides, this project transforms NCERT content into an interactive AI-powered learning experience. The goal is to help students understand concepts through visualization, experimentation, interaction, and guided exploration — while preserving the original textbook content."
+          </div>
+
+          <!-- AI Tools Disclosure -->
+          <div class="disclosure-section">
+            <h4>🤖 AI Tools Used</h4>
+            <ul class="disclosure-list">
+              <li>
+                <span class="tool-name">ChatGPT</span>
+                <span class="tool-desc">Educational planning, concept structuring, learning flow design</span>
+              </li>
+              <li>
+                <span class="tool-name">Antigravity</span>
+                <span class="tool-desc">Interactive experience creation and implementation</span>
+              </li>
+              <li>
+                <span class="tool-name">AI Visuals</span>
+                <span class="tool-desc">Educational diagrams, concept illustrations, and visual enhancements</span>
+              </li>
+            </ul>
+            <div class="disclosure-purpose">
+              <strong>Purpose:</strong> To improve understanding, engagement, retention, and accessibility while preserving original NCERT content.
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: var(--space-8); padding-bottom: var(--space-10);">
+          <button class="btn btn-secondary" onclick="App.navigateTo('welcome')">
+            🔄 Restart Journey
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end #app -->
+
+  <!-- Scripts (order matters) -->
+  <script src="js/utils/canvas-helpers.js"></script>
+  <script src="js/utils/animations.js"></script>
+  <script src="js/nova.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="js/screens/welcome.js"></script>
+  <script src="js/screens/screen1-motion.js"></script>
+  <script src="js/screens/screen2-distance.js"></script>
+  <script src="js/screens/screen3-speed.js"></script>
+  <script src="js/screens/screen4-accel.js"></script>
+  <script src="js/screens/screen5-graphs.js"></script>
+  <script src="js/screens/challenge.js"></script>
+  <script src="js/screens/certificate.js"></script>
+  <script src="js/screens/finale.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/loader.js"></script>
+</body>
+</html>
